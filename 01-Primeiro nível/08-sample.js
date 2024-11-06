@@ -1,7 +1,8 @@
-let p = { n: "Maria", i: 28 };
+const objetoPessoa = { nome: "Maria", idade: 28 };
 
-function maior(pessoa) {
-    return pessoa.i >= 18;
+function verificarMaiorIdade(pessoa) {
+    const maiorIdade =18;
+    return pessoa.idade >= maiorIdade;
 }
 
-console.log(maior(p));
+console.log(verificarMaiorIdade(objetoPessoa));
