@@ -1,25 +1,25 @@
-class z {
-    constructor(a, b, c, d, e, f, g, h) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
-        this.d = d;
-        this.e = e;
-        this.f = f;
-        this.g = g;
-        this.h = h;
+class user {
+    constructor(userProfile) {
+        this.name = userProfile.name;
+        this.age = userProfile.age;
+        this.role = userProfile.role;
+        this.creationDate = userProfile.created;
+        this.lastLogin = userProfile.lastLogin;
+        this.isActive = userProfile.active;
+        this.totalLoginAttempts = userProfile.loginAttempts;
+        this.currentLoginAttempts = userProfile.totalLoginAttemptsNumber;
     }
 
-    x() {
-        if (this.f) {
+    verificarAtvidade() {
+        if (this.isActive) {
             console.log("Ativo");
         } else {
             console.log("Inativo");
         }
     }
 
-    y() {
-        if (this.c === "admin") {
+    verificarCredenciais() {
+        if (this.role === "admin") {
             console.log("Admin pode acessar todas as áreas.");
         } else {
             console.log("Convidado tem acesso limitado.");
@@ -27,59 +27,129 @@ class z {
     }
 }
 
-// Deixe a função clara para que seja possível de compreender que ela verifica o número de usuários com a role de admin
-function t(users) {
-    let c = 0;
+function numeroDeAdmins(users) {
+    let count = 0;
     for (let i = 0; i < users.length; i++) {
-        if (users[i].c === "admin") {
-            c++;
+        if (users[i].role === "admin") {
+            count++;
         }
     }
-    return c;
+    return count;
 }
 
-// Deixe a função clara para que seja possível de compreender que ela verifica se o número de tentativas de login é excessivo
-function l(a, b) {
-    if (a.h > b) {
+function tentativasExcessivas(user, maxLoginAttempts) {
+    if (user.currentLoginAttempts > maxLoginAttempts) {
         console.log("Tentativas de login excessivas.");
     } else {
         console.log("Tentativas de login sob controle.");
     }
 }
 
-// Deixe a função clara para que seja possível de compreender que ela verifica qual usuário logou mais recentemente
-function c(u1, u2) {
-    if (u1.e > u2.e) {
-        return `${u1.a  } logou mais recentemente.`;
+function mostRecentlyLoggedIn(user1, user2) {
+    if (user1.lastLogin > user2.LastLogin) {
+        return `${user1.name} logou mais recentemente.`;
     } else {
-        return `${u2.a  } logou mais recentemente.`;
+        return `${user2.name} logou mais recentemente.`;
     }
 }
 
-// Deixe a função clara para que seja possível de compreender que ela verifica se o usuário foi criado recentemente
-function r(user) {
+function criadoRecente(user) {
     const now = new Date();
-    if (now - user.d < 31536000000) {
+    const recentlyCreatedDate = 31_536_000_000;
+    if (now - user.creationDate < recentlyCreatedDate) {
         console.log("Usuário criado recentemente.");
     } else {
         console.log("Usuário antigo.");
     }
 }
 
-const usrs = [
-    new z("Carlos", 25, "admin", new Date(2023, 1, 15), new Date(2024, 8, 1), true, 100, 2),
-    new z("Ana", 30, "guest", new Date(2020, 4, 22), new Date(2024, 7, 31), true, 50, 3),
-    new z("José", 29, "admin", new Date(2022, 10, 5), new Date(2024, 6, 10), false, 200, 5),
-    new z("Maria", 35, "guest", new Date(2021, 2, 10), new Date(2023, 12, 25), false, 80, 7)
+const yearCreated1 = 2023;
+const monthCreated1 = 1;
+const dayCreated1 = 15;
+const yearLastLogin1 = 2024;
+const monthLastLogin1 = 8;
+const dayLastLogin1 = 1;
+
+const userProfile1 = {
+    name: "Carlos",
+    age: 25,
+    role: "admin",
+    creationDate: new Date(yearCreated1, monthCreated1, dayCreated1),
+    lastLogin: new Date(yearLastLogin1, monthLastLogin1, dayLastLogin1),
+    active: true,
+    totalLoginAttempts: 100,
+    currentLoginAttempts: 2
+};
+
+const yearCreated2 = 2020;
+const monthCreated2 = 4;
+const dayCreated2 = 22;
+const yearLastLogin2 = 2024;
+const monthLastLogin2 = 7;
+const dayLastLogin2 = 31;
+
+const userProfile2 = {
+    name: "Ana",
+    age: 30,
+    role: "guest",
+    creationDate: new Date(yearCreated2, monthCreated2, dayCreated2),
+    lastLogin: new Date(yearLastLogin2, monthLastLogin2, dayLastLogin2),
+    active: true,
+    totalLoginAttempts: 50,
+    currentLoginAttempts: 3
+};
+
+const yearCreated3 = 2022;
+const monthCreated3 = 10;
+const dayCreated3 = 5;
+const yearLastLogin3 = 2024;
+const monthLastLogin3 = 6;
+const dayLastLogin3 = 10;
+
+const userProfile3 = {
+    name: "José",
+    age: 29,
+    role: "admin",
+    creationDate: new Date(yearCreated3, monthCreated3, dayCreated3),
+    lastLogin: new Date(yearLastLogin3, monthLastLogin3, dayLastLogin3),
+    active: false,
+    totalLoginAttempts: 200,
+    currentLoginAttempts: 5
+};
+
+
+const yearCreated4 = 2021;
+const monthCreated4 = 2;
+const dayCreated4 = 10;
+const yearLastLogin4 = 2024;
+const monthLastLogin4 = 12;
+const dayLastLogin4 = 25;
+
+const userProfile4 = {
+    name: "Maria",
+    age: 35,
+    role: "guest",
+    creationDate: new Date(yearCreated4, monthCreated4, dayCreated4),
+    lastLogin: new Date(yearLastLogin4, monthLastLogin4, dayLastLogin4),
+    active: false,
+    totalLoginAttempts: 80,
+    currentLoginAttempts: 7
+};
+
+const users = [
+    new user(userProfile1),
+    new user(userProfile2),
+    new user(userProfile3),
+    new user(userProfile4)
 ];
+console.log(`Usuários admin: ${numeroDeAdmins(users)}`);
 
-console.log(`Usuários admin: ${  t(usrs)}`);
-
-usrs[0].x();
-usrs[1].y();
-
-l(usrs[2], 4);
-
-console.log(c(usrs[0], usrs[3]));
-
-r(usrs[3]);
+users[0].verificarAtvidade();
+users[1].verificarCredenciais();
+const user2 = 2;
+const maxLoginAttempts = 4;
+tentativasExcessivas(users[user2], maxLoginAttempts);
+const user0 = 0;
+const user3 = 3;
+console.log(mostRecentlyLoggedIn(users[user0], users[user3]));
+criadoRecente(users[user3]);
