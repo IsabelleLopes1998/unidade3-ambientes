@@ -2,7 +2,9 @@ async function buscarEspecie() {
     const resposta = await fetch("https://swapi.dev/api/species/1/");
     const especie = await resposta.json();
 
-    console.log(especie.average_lifespan.toUpperCase());
+    const lifespan = especie.average_lifespan ? String(especie.average_lifespan) : "Desconhecido";
+
+    console.log(lifespan.toUpperCase());
 }
 
 buscarEspecie();
