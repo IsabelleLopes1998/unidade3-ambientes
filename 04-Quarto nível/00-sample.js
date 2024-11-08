@@ -1,8 +1,21 @@
+const NOT_FOUND_STATUS = 404;
+
 async function buscarPersonagem() {
     const mensagemDiv = document.getElementById("mensagem");
+    if (!mensagemDiv) {
+        console.error("Elemento com id 'mensagem' não encontrado.");
+        return;
+    }
     mensagemDiv.innerHTML = "";
 
-    const id = document.getElementById("personagemId").value;
+    const idElement = document.getElementById("personagemId");
+    if (!idElement) {
+        console.error("Elemento com id 'personagemId' não encontrado.");
+        mostrarErro("Erro interno: campo de ID não encontrado.", "danger");
+        return;
+    }
+
+    const id = idElement.value;
 
     if (!id || isNaN(id) || id <= 0) {
         mostrarErro("ID inválido. Insira um número positivo.", "danger");
@@ -13,7 +26,7 @@ async function buscarPersonagem() {
         const resposta = await fetch(`https://swapi.dev/api/people/${id}/`);
 
         if (!resposta.ok) {
-            if (resposta.status === 404) {
+            if (resposta.status === NOT_FOUND_STATUS) {
                 throw new Error("Personagem não encontrado. Verifique o ID e tente novamente.");
             } else {
                 throw new Error(`Erro desconhecido: ${resposta.statusText}`);
@@ -24,6 +37,7 @@ async function buscarPersonagem() {
         mostrarResultado(personagem);
 
     } catch (erro) {
+        console.error("Erro ao buscar o personagem:", erro);
         mostrarErro(erro.message || "Erro ao buscar personagem.", "danger");
     }
 }
