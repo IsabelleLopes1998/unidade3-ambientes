@@ -24,7 +24,7 @@ async function buscarPersonagem() {
         mostrarResultado(personagem);
 
     } catch (erro) {
-        mostrarErro(erro.message, "danger");
+        mostrarErro(erro.message || "Erro ao buscar personagem.", "danger");
     }
 }
 
